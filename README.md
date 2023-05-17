@@ -38,25 +38,48 @@ The objective of the Netflix dataset is to analyze and understand the characteri
 
 1. This visual showcases the trend of content production on Netflix over a specific timeframe. It illustrates how the volume of content released on the platform has changed over the years, offering insights into the growth and expansion of Netflix's library.
 
-   `df1 = df[['type','release_year']]
-df1=df1.groupby(['type','release_year']).size().reset_index(name='count')
-df1=df1[df1['release_year']>=2010]
-fig3 = px.line(df1, x="release_year", y="count", color='type',title='Trend of content produced over the years on Netflix')
+   `df1 = df[['type','release_year']]`
+   `df1=df1.groupby(['type','release_year']).size().reset_index(name='count')`
+   `df1=df1[df1['release_year']>=2010]`
+   `fig3 = px.line(df1, x="release_year", y="count", color='type',title='Trend of content produced over the years on Netflix')
 pyo.iplot(fig3)`
 
 
   <p><img src=https://user-images.githubusercontent.com/55955478/235930727-c2fb29a8-5cdd-419e-8cc0-523ee680c6e4.png height=400 width=800></p>
+-------------------------------------------------------------------------------------------------------------
 
-<img src=https://user-images.githubusercontent.com/55955478/235930793-b667e783-5a98-41cf-9860-4d5899714065.png height=400 width=1200>
+2. This visual presents a sentiment analysis of the content available on Netflix. It provides an overview of the overall sentiment associated with the shows and movies offered on the platform. By analyzing and categorizing the sentiment as positive, negative, or neutral, this visual offers valuable insights into the general emotional tone and reception of Netflix's content. It enables users to understand the prevailing sentiments surrounding the content and gain a better understanding of audience preferences and reactions.
 
-<img src=https://user-images.githubusercontent.com/55955478/235930910-1084fb3d-201a-4935-a2a6-27d381caf15e.png height=400 width=1200>
+   `dfx=df[['release_year','description']]`
+   `dfx=dfx.rename(columns={'release_year':'Release Year'})`
+   `for index,row in dfx.iterrows():
+       z=row['description']
+       testimonial=TextBlob(z)
+       p=testimonial.sentiment.polarity
+       if p==0:
+           sent='Neutral'
+       elif p>0:
+           sent='Positive'
+       else:
+           sent='Negative'`
+    `dfx.loc[[index],'Sentiment']=sent`
+    `dfx=dfx.groupby(['Release Year','Sentiment']).size().reset_index(name='Total Content')`
+    `dfx=dfx[dfx['Release Year']>=2010]`
+   `fig4 = px.bar(dfx, x="Release Year", y="Total Content", color="Sentiment", title="Sentiment of content on Netflix")
+   pyo.iplot(fig4)`
 
 <img src=https://user-images.githubusercontent.com/55955478/235931092-117eb13b-3e21-440b-b9c5-de442e024d8e.png height=400 width=1200>
+-------------------------------------------------------------------------------------------------------
 
-<img src=https://user-images.githubusercontent.com/55955478/235932119-a505ae83-0534-4474-8d04-42f3191c3b49.png height=400 width=1200>
+3. This visual presents a countplot showcasing the top 10 countries that produce the most number of TV shows available on Netflix. It offers a clear representation of the frequency or count of TV shows originating from each country within the dataset. By highlighting the countries with the highest production volume, this visual provides insights into the geographic distribution and dominance of TV show content on the platform.
 
-<img src=https://user-images.githubusercontent.com/55955478/235932307-c627db96-5e2f-4a29-8de6-ceca0d1ea525.png height=400 width=1200>
-
+  ` # Countplot of top 10 countries prodcing most number of TV Shows on the Netflix.`
+  `plt.figure(figsize=(12,6))`
+  `sns.countplot(y='country',order=tv_show_countries['country'].value_counts().index[0:10],data=tv_show_countries,ec='black',lw=2,palette = "Set1")`
+  `plt.title('Top 10 countries producing TV Shows on Netflix',fontsize=17)`
+   `plt.grid(True)`
+   `plt.show()`
+   
 <img src=https://user-images.githubusercontent.com/55955478/235933143-8b24f947-dd3d-4f83-9fcb-3dc1517d1e64.png height=400 width=1200>
 <br>
 
