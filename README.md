@@ -7,9 +7,10 @@
 
 | Files | Description |
 |-------| ------------|
-| Netflix_data_Analysis(EDA).ipynb| This file contains the end to end analysis of Netflix dataset |
-| netflix_data_analysis.py | This python a file contaning code of Netflix data analysis project |
-| netflix_titles.csv.zip | This zip folder contains the raw data downloaded from Kaggle |
+| Dataset | This folder houses a comprehensive collection of Netflix data sourced from Kaggle. |
+| Exploratory Data Analysis | This folder encompasses the code for a Netflix data analysis project. |
+| README.md | This is the Readme file of the project. |
+
 <br>
 
 ## About this Dataset: 
@@ -35,7 +36,16 @@ The objective of the Netflix dataset is to analyze and understand the characteri
 
 ## <img src=https://user-images.githubusercontent.com/55955478/235934087-2658bab8-0815-43d1-b568-7cd023b3cc38.gif height=48 width=48> Eye_Opening Insights:
 
-<img src=https://user-images.githubusercontent.com/55955478/235930727-c2fb29a8-5cdd-419e-8cc0-523ee680c6e4.png height=400 width=1200>
+1. This visual showcases the trend of content production on Netflix over a specific timeframe. It illustrates how the volume of content released on the platform has changed over the years, offering insights into the growth and expansion of Netflix's library.
+
+   `df1 = df[['type','release_year']]
+df1=df1.groupby(['type','release_year']).size().reset_index(name='count')
+df1=df1[df1['release_year']>=2010]
+fig3 = px.line(df1, x="release_year", y="count", color='type',title='Trend of content produced over the years on Netflix')
+pyo.iplot(fig3)`
+
+
+  <p><img src=https://user-images.githubusercontent.com/55955478/235930727-c2fb29a8-5cdd-419e-8cc0-523ee680c6e4.png height=400 width=800></p>
 
 <img src=https://user-images.githubusercontent.com/55955478/235930793-b667e783-5a98-41cf-9860-4d5899714065.png height=400 width=1200>
 
